@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 from matplotlib.lines import Line2D
 import pandas as pd
+import numpy as np
 
 halo_marker_dict = {'2392' : 'o', '4123' : 'x', '5016' : 'v', '5036' : '*', '8508' : 'D'}
 halo_names_dict = {'2392'  :  'Hurricane' ,'2878'  :  'Cyclone' , '4123'  :  'Blizzard' , '5016'  :  'Squall' ,'5036'  :  'Maelstrom' , '8508'  :  'Tempest'}
@@ -23,7 +24,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -45,7 +46,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -67,7 +68,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -88,7 +89,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -109,7 +110,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -130,7 +131,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -151,7 +152,7 @@ for rs in rs_lis:
     for halo in halo_marker_dict.keys():
         name = get_halo_names(halo)
         for ion in ion_dict.keys():
-            if halo == '2392' and rs == 2.5:
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
                 continue
             else:
                 print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
@@ -165,4 +166,66 @@ for rs in rs_lis:
     plt.ylabel("MAD of Median log(Column Density)")
     plt.xlabel("Distance from Galaxy")
     plt.savefig(f'/mnt/scratch/f0104093/cgm_abundance_variance/graphs/dist_vs_mad_z{rs}.png')
+    plt.close()
+    
+for rs in rs_lis:
+    for halo in halo_marker_dict.keys():
+        name = get_halo_names(halo)
+        for ion in ion_dict.keys():
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
+                continue
+            else:
+                print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
+                ds = pd.read_csv(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv', delim_whitespace = True)
+                med_col_dens = ds["median_col_desnity"]
+                num_spl_sho = ds["num_split_or_short"]
+                plt.scatter(med_col_dens, num_spl_sho, c = ion_dict[ion], marker = halo_marker_dict[halo])
+      
+    plt.title(f"Frequency of Split or Short Clumps vs Column Density, Redshift {rs}")
+    plt.legend(handles = legend_elements, ncol = 2, markerscale = 0.75, fontsize = 'x-small')
+    plt.xlabel("Median log(Column Density)")
+    plt.ylabel("Number of Split or Short Clumps")
+    plt.savefig(f'/mnt/scratch/f0104093/cgm_abundance_variance/graphs/freq_vs_med_z{rs}.png')
+    plt.close()
+    
+for rs in rs_lis:
+    for halo in halo_marker_dict.keys():
+        name = get_halo_names(halo)
+        for ion in ion_dict.keys():
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
+                continue
+            else:
+                print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
+                ds = pd.read_csv(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv', delim_whitespace = True)
+                elem_mad = ds["mad_of_element"]
+                col_dens_spread = ds["mad_for_col_desnity"]
+                plt.scatter(col_dens_spread, elem_mad, c = ion_dict[ion], marker = halo_marker_dict[halo])
+      
+    plt.title(f"MAD of Elemental Abundance vs MAD of Column Density, Redshift {rs}")
+    plt.legend(handles = legend_elements, ncol = 2)
+    plt.ylabel("MAD of Elemental Abundance")
+    plt.xlabel("MAD of log(Column Density)")
+    plt.savefig(f'/mnt/scratch/f0104093/cgm_abundance_variance/graphs/mad_vs_elem_mad_z{rs}.png')
+    plt.close()
+    
+for rs in rs_lis:
+    diff_list = []
+    for halo in halo_marker_dict.keys():
+        name = get_halo_names(halo)
+        for ion in ion_dict.keys():
+            if (halo == '2392' and rs == 2.5) or (halo == '5016' and rs == 2.5):
+                continue
+            else:
+                print(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv')
+                ds = pd.read_csv(f'/mnt/scratch/f0104093/cgm_abundance_variance/halo{halo}/redshift{rs}/stats/{halo}_z{rs}_{ion}_abun_all-model-families_all-clumps.csv', delim_whitespace = True)
+                diff = ds["diff_from_solar_abun"]
+                for value in diff:
+                    if value != 'NaN' and value != np.NaN:
+                        diff_list.append(value)
+      
+    plt.hist(diff_list)
+    plt.title(f"Diffrence between Solar Abundance and Median Column Density, Redshift {rs}")
+    plt.ylabel("frequency")
+    plt.xlabel("dex of the difference between Solar Abundance Column Density and Median Column Density")
+    plt.savefig(f'/mnt/scratch/f0104093/cgm_abundance_variance/graphs/solar_diff_z{rs}.png')
     plt.close()
