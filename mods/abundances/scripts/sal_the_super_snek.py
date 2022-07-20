@@ -26,7 +26,8 @@ parser.add_argument('--rshift', action='store', dest='rs', default=20, type=int,
 args = parser.parse_args()
 dic_args = vars(args)
 
-def get_true_rs(val): ##define how to get actual rshift numbers
+def get_true_rs(val): 
+    '''define how to get actual rshift numbers'''
     if val == 20:
         true_rs = '2.0'
     elif val == 18:
@@ -36,6 +37,7 @@ def get_true_rs(val): ##define how to get actual rshift numbers
 halo_names_dict = {'2392'  :  'Hurricane' ,'2878'  :  'Cyclone' , '4123'  :  'Blizzard' , '5016'  :  'Squall' ,'5036'  :  'Maelstrom' , '8508'  :  'Tempest'}
 
 def get_halo_names(num):
+    '''Gives the names for the FOGGIE halos'''
     if str(num) in halo_names_dict.keys():
         halo_name = halo_names_dict[str(num)]
     return halo_name
@@ -64,7 +66,8 @@ def generate_names(length, add=''):
 # defining analysis parameters
 # Note: these dictionaries are temporary and should most likely be included in the arguments at some point
 
-def weighted_av(values, weights): ##define functions necessary in making statistics
+def weighted_av(values, weights): 
+    '''define a function necessary in making statistics'''
     weighted_sum = []
     for value, weight in zip(values, weights):
         weighted_sum.append(value * weight)
@@ -72,6 +75,7 @@ def weighted_av(values, weights): ##define functions necessary in making statist
     return sum(weighted_sum) / sum(weights)
 
 def make_full_list(list_in, list_out):
+    '''makes one list out of a few lists'''
     for element in list_in:
         list_out.append(element)
     return list_out
@@ -89,6 +93,7 @@ true_rs = get_true_rs(rs) ##gets the true rs needed
 # outputs a dictionary of galactic center locations/velocities for all redshifts in each halo pattern
 # NOTE: this function is temporary and has some hard-coded variables that will need to be changed
 def foggie_defunker(foggie_dir):
+    '''returns the center data for each halo'''
     # initializing dictionary to store all of the galactic center data
     center_dat = {}
 
