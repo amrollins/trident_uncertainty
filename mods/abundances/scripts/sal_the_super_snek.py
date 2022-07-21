@@ -96,7 +96,6 @@ def foggie_defunker(foggie_dir):
     '''returns the center data for each halo'''
     # initializing dictionary to store all of the galactic center data
     center_dat = {}
-
     # creating branch for each halo
     center_dat[halo] = {}
     # some hardcoded pipelies that will need to be changed
